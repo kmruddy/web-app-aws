@@ -1,16 +1,15 @@
-provider "aws" {
-  region = var.aws_region
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "2.3.0"
+    }
+    
+  }
 }
 
-provider "random" {
-  version = "2.3.0"
-}
+provider "aws" {}
 
-resource "random_pet" "bucket_name" {
-  length    = 2
-  separator = "-"
-}
-
-resource "aws_s3_bucket" "random_bucket" {
-  bucket = "terraform-webinar-${random_pet.bucket_name.id}"
+resource "aws_s3_bucket" "bucket" {
+  bucket = var.bucket_name
 }
